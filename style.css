@@ -1,0 +1,139 @@
+/* Импортираме модерен шрифт */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    background-color: #181818;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер */
+main {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Хедър */
+header {
+    background-color: #202020;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+header img {
+    height: 50px;
+}
+
+header h1 {
+    margin-top: 10px;
+    font-size: 32px;
+    color: #66ccff;
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav a {
+    color: #bbb;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #66ccff;
+}
+
+/* Футър */
+footer {
+    background-color: #202020;
+    color: #777;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #333;
+    font-size: 14px;
+}
+
+/* Форми */
+form input, form select, form textarea {
+    width: 100%;
+    background-color: #2c2c2c;
+    color: #f0f0f0;
+    border: 1px solid #444;
+    padding: 14px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #66ccff;
+    outline: none;
+}
+
+form button {
+    background-color: #66ccff;
+    color: #181818;
+    border: none;
+    padding: 14px 30px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #4ab0e5;
+}
+
+/* Таблици */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: #202020;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+table th {
+    background-color: #282828;
+    color: #66ccff;
+    font-weight: 600;
+}
+
+table tr:hover {
+    background-color: #2e2e2e;
+}
+
+/* Линкове */
+a {
+    color: #66ccff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Карта и снимки */
+iframe, img {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+}

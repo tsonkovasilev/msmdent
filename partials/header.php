@@ -8,16 +8,14 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <title>MSM Dent</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        header, footer { background: #eee; padding: 10px; text-align: center; }
-        nav a { margin: 0 10px; }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <header>
-    <h1>MSM Dent</h1>
+    <?php $logo = 'https://play-lh.googleusercontent.com/cvEngLJvLd3PWYCxtHEtqFlz-0D8m2Ro4jU4EBJulSFUQ10_MxkGrtofWOvtxQk1pA'; ?>
+    <a href="/"><img src="<?php echo $logo?>" alt="MSM Dent Лого" style="height: 200px; width:auto; vertical-align: middle;"></a>
+    
     <?php if (isset($_SESSION['user_id'])): ?>
         <nav>
             <a href="/orders/list.php">Поръчки</a>
@@ -26,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
         </nav>
     <?php else: ?>
         <nav>
-        <a href="/index.php">Начало</a>
+        <a href="/index.php">За нас</a>
         <a href="/orders/list.php">Поръчки</a>
         </nav>
     <?php endif; ?>
