@@ -36,15 +36,10 @@ $order = $result->fetchArray(SQLITE3_ASSOC);
 if (!$order) {
     die("Поръчката не съществува или нямате достъп до нея.");
 }
+
+include __DIR__ . '/../partials/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="bg">
-<head>
-    <meta charset="UTF-8">
-    <title>Поръчка №<?php echo htmlspecialchars($order['id']); ?></title>
-</head>
-<body>
 
 <h2>Поръчка №<?php echo htmlspecialchars($order['id']); ?></h2>
 
@@ -59,6 +54,30 @@ if (!$order) {
 <p><strong>Адрес:</strong><br><?php echo nl2br(htmlspecialchars($order['address'])); ?></p>
 <p><strong>Коментар:</strong><br><?php echo nl2br(htmlspecialchars($order['comment'])); ?></p>
 <p><strong>Статус:</strong> <?php echo htmlspecialchars($order['status']); ?></p>
+
+<h3>Качени файлове:</h3>
+
+<?php
+$upload_dir = __DIR__ . '/../uploads/' . $order['id'] . '/';
+
+if (is_dir($upload_dir)) {
+    $files = array_diff(scandir($upload_dir), array('.', '..'));
+
+    if (!empty($files)) {
+        echo "<ul>";
+        foreach ($files as $file) {
+            $url = '../uploads/' . $order['id'] . '/' . urlencode($file);
+            echo "<li><a href='$url' target='_blank'>" . htmlspecialchars($file) . "</a></li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "Няма качени файлове.";
+    }
+} else {
+    echo "Няма качени файлове.";
+}
+?>
+<hr>
 
 <?php if ($order['status'] === 'Нова' && ($is_admin || $_SESSION['user_id'] == $order['user_id'])): ?>
     <form method="POST" action="delete.php" onsubmit="return confirm('Наистина ли искате да изтриете тази поръчка?');">
@@ -83,5 +102,6 @@ if (!$order) {
 <br>
 <a href="list.php">⬅ Назад към списъка</a>
 
-</body>
-</html>
+<?php
+include __DIR__ . '/../partials/footer.php';
+?>

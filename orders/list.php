@@ -21,6 +21,8 @@ if (!$user) {
 
 $is_admin = ($user['role'] === 'admin');
 
+include __DIR__ . '/../partials/header.php';
+
 echo "<h2>Поръчки</h2>";
 echo "<a href='../logout.php'>Изход</a> | <a href='../index.php'>Начало</a> | <a href='add.php'>Нова поръчка</a><br><br>";
 
@@ -76,4 +78,6 @@ while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
 }
 
 echo "</table>";
+
+include __DIR__ . '/../partials/footer.php';
 ?>

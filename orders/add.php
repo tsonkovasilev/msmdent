@@ -8,13 +8,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="bg">
-<head>
-    <meta charset="UTF-8">
-    <title>Нова поръчка</title>
-</head>
-<body>
+<?php
+include __DIR__ . '/../partials/header.php';
+?>
 
 <h2>Нова поръчка</h2>
 

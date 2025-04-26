@@ -8,6 +8,8 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
+include __DIR__ . '/partials/header.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
@@ -37,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // Показваме форма за вход
+    
+    
+
     echo "<h2>Вход</h2>
     <form method='POST' action='login.php'>
         Имейл: <input type='email' name='email' required><br><br>
@@ -45,5 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     <br>
     <a href='index.php'>⬅ Назад</a>";
+    
+    
 }
+
+include __DIR__ . '/partials/footer.php';
+
 ?>
