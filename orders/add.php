@@ -24,14 +24,12 @@ if (!isset($_SESSION['user_id'])) {
 
     Моделиране:
     <select name="modeling">
-        <option value="">-- Изберете --</option>
         <option value="Да">Да</option>
         <option value="Не">Не</option>
     </select><br><br>
 
     Материал:
     <select name="material">
-        <option value="">-- Изберете --</option>
         <option value="ZirCAD Prime">ZirCAD Prime</option>
         <option value="ZirCAD Prime Esthetic">ZirCAD Prime Esthetic</option>
         <option value="PMMA">PMMA</option>
@@ -39,15 +37,16 @@ if (!isset($_SESSION['user_id'])) {
 
     Цвят:
     <select name="color">
-        <option value="">-- Изберете --</option>
         <option value="BL">BL</option>
         <option value="A1">A1</option>
         <option value="A2">A2</option>
     </select><br><br>
 
+    Файл към поръчката
+    <input type="file" name="file" accept=".stl,.ply,.dcm,.txt"><br><br>
+
     Доставка:
     <select name="delivery">
-        <option value="">-- Изберете --</option>
         <option value="Взимане от офис">Взимане от офис</option>
         <option value="Доставка с куриер">Доставка с куриер</option>
         <option value="До офис на куриер">До офис на куриер</option>
@@ -63,8 +62,7 @@ if (!isset($_SESSION['user_id'])) {
     Коментар:<br>
     <textarea name="comment" rows="4" cols="40"></textarea><br><br>
 
-    <h3>Файл към поръчката (по избор)</h3>
-    <input type="file" name="file" accept=".stl,.ply,.dcm"><br><br>
+    
 
     <button type="submit">Създай поръчка</button>
 

@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// ВЗИМАМЕ ВСИЧКИ ПОЛЕТА ОТ ФОРМАТА
+// Взимаме данните от формата
 $quantity = trim($_POST['quantity'] ?? '');
 $modeling = trim($_POST['modeling'] ?? '');
 $material = trim($_POST['material'] ?? '');
@@ -23,7 +23,7 @@ $recipient_phone = trim($_POST['recipient_phone'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $comment = trim($_POST['comment'] ?? '');
 
-// СЪЗДАВАМЕ ПОРЪЧКАТА В БАЗАТА
+// Създаваме нов запис в таблицата orders
 $stmt = $db->prepare("INSERT INTO orders (user_id, quantity, modeling, material, color, delivery, recipient_name, recipient_phone, address, comment)
 VALUES (:user_id, :quantity, :modeling, :material, :color, :delivery, :recipient_name, :recipient_phone, :address, :comment)");
 
@@ -40,12 +40,12 @@ $stmt->bindValue(':comment', $comment, SQLITE3_TEXT);
 
 $stmt->execute();
 
-// ВЗИМАМЕ ID НА НОВАТА ПОРЪЧКА
+// Взимаме ID на новата поръчка
 $order_id = $db->lastInsertRowID();
 
-// АКО ИМА ФАЙЛ, ГО КАЧВАМЕ
+// Ако има качен файл, качваме го
 if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
-    $allowed_extensions = ['stl', 'ply', 'dcm'];
+    $allowed_extensions = ['stl', 'ply', 'dcm','txt'];
     $file_ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
 
     if (in_array($file_ext, $allowed_extensions)) {
@@ -59,7 +59,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
     }
 }
 
-// ПРЕХВЪРЛЯМЕ КЪМ СПИСЪКА
 header('Location: list.php');
 exit;
 ?>
