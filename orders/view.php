@@ -1,9 +1,10 @@
 <?php
 session_start();
-include 'db.php';
+include __DIR__ . '/../db.php';
 
 if (!isset($_SESSION['user_id'])) {
-    die("Не сте влезли в системата.");
+    header('Location: ../login.php');
+    exit;
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -12,7 +13,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $order_id = (int)$_GET['id'];
 
-// Извличаме ролята
+// Проверка дали потребителят е админ
 $stmt = $db->prepare("SELECT role FROM users WHERE id = :id");
 $stmt->bindValue(':id', $_SESSION['user_id'], SQLITE3_INTEGER);
 $result = $stmt->execute();
@@ -20,13 +21,14 @@ $user = $result->fetchArray(SQLITE3_ASSOC);
 
 $is_admin = ($user['role'] === 'admin');
 
-// Зареждаме поръчката
+// Зареждане на поръчката
 if ($is_admin) {
     $stmt = $db->prepare("SELECT * FROM orders WHERE id = :id");
 } else {
     $stmt = $db->prepare("SELECT * FROM orders WHERE id = :id AND user_id = :user_id");
     $stmt->bindValue(':user_id', $_SESSION['user_id'], SQLITE3_INTEGER);
 }
+
 $stmt->bindValue(':id', $order_id, SQLITE3_INTEGER);
 $result = $stmt->execute();
 $order = $result->fetchArray(SQLITE3_ASSOC);
@@ -52,18 +54,21 @@ if (!$order) {
 <p><strong>Материал:</strong> <?php echo htmlspecialchars($order['material']); ?></p>
 <p><strong>Цвят:</strong> <?php echo htmlspecialchars($order['color']); ?></p>
 <p><strong>Доставка:</strong> <?php echo htmlspecialchars($order['delivery']); ?></p>
+<p><strong>Име на получател:</strong> <?php echo htmlspecialchars($order['recipient_name']); ?></p>
+<p><strong>Телефон на получател:</strong> <?php echo htmlspecialchars($order['recipient_phone']); ?></p>
+<p><strong>Адрес:</strong><br><?php echo nl2br(htmlspecialchars($order['address'])); ?></p>
 <p><strong>Коментар:</strong><br><?php echo nl2br(htmlspecialchars($order['comment'])); ?></p>
 <p><strong>Статус:</strong> <?php echo htmlspecialchars($order['status']); ?></p>
 
 <?php if ($order['status'] === 'Нова' && ($is_admin || $_SESSION['user_id'] == $order['user_id'])): ?>
-    <form method="POST" action="delete_order.php">
+    <form method="POST" action="delete.php" onsubmit="return confirm('Наистина ли искате да изтриете тази поръчка?');">
         <input type="hidden" name="id" value="<?php echo $order['id']; ?>">
-        <button type="submit" onclick="return confirm('Наистина ли искате да изтриете тази поръчка?')">Изтрий поръчката</button>
+        <button type="submit">Изтрий поръчката</button>
     </form>
 <?php endif; ?>
 
 <?php if ($is_admin): ?>
-    <form method="POST" action="update_status.php">
+    <form method="POST" action="update.php">
         <input type="hidden" name="id" value="<?php echo $order['id']; ?>">
         Смени статус:
         <select name="status">
@@ -71,12 +76,12 @@ if (!$order) {
             <option value="Започната" <?php if ($order['status'] == 'Започната') echo 'selected'; ?>>Започната</option>
             <option value="Готова" <?php if ($order['status'] == 'Готова') echo 'selected'; ?>>Готова</option>
         </select>
-        <button type="submit">Обнови</button>
+        <button type="submit">Обнови статус</button>
     </form>
 <?php endif; ?>
 
 <br>
-<a href="index.php">⬅ Обратно към всички поръчки</a>
+<a href="list.php">⬅ Назад към списъка</a>
 
 </body>
 </html>

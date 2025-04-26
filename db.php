@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3('my_database.sqlite');
+$db = new SQLite3('database.sqlite');
 
 // Таблица за потребителите
 $db->exec("CREATE TABLE IF NOT EXISTS users (

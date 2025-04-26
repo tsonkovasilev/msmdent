@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../db.php';
+include __DIR__ . '/../db.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
@@ -55,13 +55,13 @@ if (!isset($_SESSION['user_id'])) {
     <textarea name="address" rows="3" cols="40" required></textarea><br><br>
 
     Коментар:<br>
-    <textarea name="comment" rows="5" cols="40"></textarea><br><br>
+    <textarea name="comment" rows="4" cols="40"></textarea><br><br>
 
     <button type="submit">Създай поръчка</button>
 </form>
 
 <br>
-<a href="list.php">⬅ Назад към поръчките</a>
+<a href="list.php">⬅ Обратно към поръчките</a>
 
 </body>
 </html>
