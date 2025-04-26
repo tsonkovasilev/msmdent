@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Взимаме данните от формата, дори да са празни
+// Взимаме данните от формата
 $quantity = trim($_POST['quantity'] ?? '');
 $modeling = trim($_POST['modeling'] ?? '');
 $material = trim($_POST['material'] ?? '');
@@ -23,9 +23,7 @@ $recipient_phone = trim($_POST['recipient_phone'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $comment = trim($_POST['comment'] ?? '');
 
-// Вече не проверяваме дали са попълнени
-
-// Създаваме поръчката
+// Създаваме нова поръчка
 $stmt = $db->prepare("INSERT INTO orders (user_id, quantity, modeling, material, color, delivery, recipient_name, recipient_phone, address, comment)
 VALUES (:user_id, :quantity, :modeling, :material, :color, :delivery, :recipient_name, :recipient_phone, :address, :comment)");
 
@@ -42,10 +40,10 @@ $stmt->bindValue(':comment', $comment, SQLITE3_TEXT);
 
 $stmt->execute();
 
-// ID на новата поръчка
+// Взимаме ID на новата поръчка
 $order_id = $db->lastInsertRowID();
 
-// Ако има качен файл
+// Ако е качен файл
 if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
     $allowed_extensions = ['stl', 'ply', 'dcm'];
     $file_ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
@@ -61,6 +59,11 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
     }
 }
 
+
+echo 'asdas';
+exit();
+
+// Пренасочваме обратно към списъка
 header('Location: list.php');
 exit;
 ?>
