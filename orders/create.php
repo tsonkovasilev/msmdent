@@ -22,10 +22,11 @@ $recipient_name = trim($_POST['recipient_name'] ?? '');
 $recipient_phone = trim($_POST['recipient_phone'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $comment = trim($_POST['comment'] ?? '');
+$order_type = trim($_POST['order_type'] ?? '');
 
 // Създаваме нов запис в таблицата orders
-$stmt = $db->prepare("INSERT INTO orders (user_id, quantity, modeling, material, color, delivery, recipient_name, recipient_phone, address, comment)
-VALUES (:user_id, :quantity, :modeling, :material, :color, :delivery, :recipient_name, :recipient_phone, :address, :comment)");
+$stmt = $db->prepare("INSERT INTO orders (user_id, quantity, modeling, material, color, delivery, recipient_name, recipient_phone, address, comment, order_type)
+VALUES (:user_id, :quantity, :modeling, :material, :color, :delivery, :recipient_name, :recipient_phone, :address, :comment, :order_type)");
 
 $stmt->bindValue(':user_id', $_SESSION['user_id'], SQLITE3_INTEGER);
 $stmt->bindValue(':quantity', $quantity, SQLITE3_TEXT);
@@ -37,6 +38,7 @@ $stmt->bindValue(':recipient_name', $recipient_name, SQLITE3_TEXT);
 $stmt->bindValue(':recipient_phone', $recipient_phone, SQLITE3_TEXT);
 $stmt->bindValue(':address', $address, SQLITE3_TEXT);
 $stmt->bindValue(':comment', $comment, SQLITE3_TEXT);
+$stmt->bindValue(':order_type', $order_type, SQLITE3_TEXT);
 
 $stmt->execute();
 

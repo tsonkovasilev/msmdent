@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type='submit'>Вход</button>
     </form>
     <br>
-    <a href='index.php'>⬅ Назад</a>";
+    <a href='register.php'>Направи нова регистрация</a>";
     
     
 }

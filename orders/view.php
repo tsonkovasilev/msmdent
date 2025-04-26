@@ -42,7 +42,7 @@ include __DIR__ . '/../partials/header.php';
 
 
 <h2>Поръчка №<?php echo htmlspecialchars($order['id']); ?></h2>
-
+<p><strong>Тип на поръчката:</strong> <?php echo htmlspecialchars($order['order_type']); ?></p>
 <p><strong>Дата:</strong> <?php echo htmlspecialchars($order['date']); ?></p>
 <p><strong>Брой елементи:</strong> <?php echo htmlspecialchars($order['quantity']); ?></p>
 <p><strong>Моделиране:</strong> <?php echo htmlspecialchars($order['modeling']); ?></p>

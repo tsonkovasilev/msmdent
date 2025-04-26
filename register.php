@@ -8,6 +8,8 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
+include __DIR__ . '/partials/header.php';
+
 // Ако е пратен формуляр
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -45,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type='submit'>Регистрация</button>
     </form>
     <br>
-    <a href='index.php'>⬅ Обратно</a>";
+    <a href='login.php'>Вече имам регистрация</a>";
 }
+
+include __DIR__ . '/partials/footer.php';
 ?>

@@ -41,6 +41,7 @@ echo "<table border='1' cellpadding='10' cellspacing='0'>
 <tr>
     <th>ID</th>
     <th>Дата</th>
+    <th>Тип</th>
     <th>Име на получател</th>
     <th>Телефон</th>
     <th>Материал</th>
@@ -63,6 +64,7 @@ while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
     echo "<tr>";
     echo "<td>" . htmlspecialchars($row['id']) . "</td>";
     echo "<td>" . htmlspecialchars($row['date']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['order_type']) . "</td>";
     echo "<td>" . htmlspecialchars($row['recipient_name']) . "</td>";
     echo "<td>" . htmlspecialchars($row['recipient_phone']) . "</td>";
     echo "<td>" . htmlspecialchars($row['material']) . "</td>";

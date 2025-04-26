@@ -15,6 +15,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     date TEXT DEFAULT CURRENT_TIMESTAMP,
+    order_type VARCHAR(255),
     quantity VARCHAR(255),
     modeling VARCHAR(255),
     material VARCHAR(255),
