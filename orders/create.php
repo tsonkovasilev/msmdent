@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Взимаме данните от формата, дори да са празни
 $quantity = trim($_POST['quantity'] ?? '');
 $modeling = trim($_POST['modeling'] ?? '');
 $material = trim($_POST['material'] ?? '');
@@ -22,10 +23,9 @@ $recipient_phone = trim($_POST['recipient_phone'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $comment = trim($_POST['comment'] ?? '');
 
-if (empty($quantity) || empty($modeling) || empty($material) || empty($color) || empty($delivery) || empty($recipient_name) || empty($recipient_phone) || empty($address)) {
-    die("Моля, попълнете всички задължителни полета.");
-}
+// Вече не проверяваме дали са попълнени
 
+// Създаваме поръчката
 $stmt = $db->prepare("INSERT INTO orders (user_id, quantity, modeling, material, color, delivery, recipient_name, recipient_phone, address, comment)
 VALUES (:user_id, :quantity, :modeling, :material, :color, :delivery, :recipient_name, :recipient_phone, :address, :comment)");
 
@@ -41,6 +41,25 @@ $stmt->bindValue(':address', $address, SQLITE3_TEXT);
 $stmt->bindValue(':comment', $comment, SQLITE3_TEXT);
 
 $stmt->execute();
+
+// ID на новата поръчка
+$order_id = $db->lastInsertRowID();
+
+// Ако има качен файл
+if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+    $allowed_extensions = ['stl', 'ply', 'dcm'];
+    $file_ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+
+    if (in_array($file_ext, $allowed_extensions)) {
+        $upload_dir = __DIR__ . '/../uploads/' . $order_id . '/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $destination = $upload_dir . basename($_FILES['file']['name']);
+        move_uploaded_file($_FILES['file']['tmp_name'], $destination);
+    }
+}
 
 header('Location: list.php');
 exit;

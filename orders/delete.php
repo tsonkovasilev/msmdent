@@ -40,6 +40,16 @@ if ($order['status'] === 'Нова' && ($is_admin || $order['user_id'] == $_SESS
     $stmt = $db->prepare("DELETE FROM orders WHERE id = :id");
     $stmt->bindValue(':id', $order_id, SQLITE3_INTEGER);
     $stmt->execute();
+
+    // Изтриваме файловете ако има папка
+    $upload_dir = __DIR__ . '/../uploads/' . $order_id . '/';
+    if (is_dir($upload_dir)) {
+        $files = array_diff(scandir($upload_dir), array('.', '..'));
+        foreach ($files as $file) {
+            unlink($upload_dir . $file);
+        }
+        rmdir($upload_dir);
+    }
 }
 
 header('Location: list.php');
