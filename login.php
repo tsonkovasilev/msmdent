@@ -8,13 +8,14 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-include __DIR__ . '/partials/header.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     if (empty($email) || empty($password)) {
+        include __DIR__ . '/partials/header.php';
         die("Моля, попълнете всички полета.");
     }
 
@@ -32,16 +33,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: orders/list.php');
             exit;
         } else {
+            include __DIR__ . '/partials/header.php';
             echo "Грешна парола.<br><a href='login.php'>⬅ Върни се</a>";
         }
     } else {
+        include __DIR__ . '/partials/header.php';
         echo "Имейлът не е намерен.<br><a href='login.php'>⬅ Върни се</a>";
     }
 } else {
     // Показваме форма за вход
     
     
-
+    include __DIR__ . '/partials/header.php';
     echo "<h2>Вход</h2>
     <form method='POST' action='login.php'>
         Имейл: <input type='email' name='email' required><br><br>
